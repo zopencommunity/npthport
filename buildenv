@@ -2,7 +2,7 @@ export ZOPEN_TARBALL_URL="https://gnupg.org/ftp/gcrypt/npth/npth-1.6.tar.bz2"
 export ZOPEN_TARBALL_DEPS="make bzip2 tar curl perl automake autoconf m4 sed gettext zoslib diffutils libgpg"
 export ZOPEN_TYPE="TARBALL"
 export ZOPEN_COMP=CLANG
-NPTH_VERSION="1.0.0"
+NPTH_VERSION="1.6"
 
 zopen_check_results()
 {
