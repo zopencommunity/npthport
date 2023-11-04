@@ -1,8 +1,10 @@
-export ZOPEN_TARBALL_URL="https://gnupg.org/ftp/gcrypt/npth/npth-1.6.tar.bz2"
-export ZOPEN_TARBALL_DEPS="make bzip2 tar curl perl automake autoconf m4 sed gettext zoslib diffutils libgpgerror"
-export ZOPEN_TYPE="TARBALL"
-export ZOPEN_COMP=CLANG
+# bump: npth-version /NPTH_VERSION="(.*)"/ https://gnupg.org/ftp/gcrypt/npth/|re:/href="npth-([\d.]+).tar.bz2"/$1/|semver:*
 NPTH_VERSION="1.6"
+
+export ZOPEN_BUILD_LINE="STABLE"
+export ZOPEN_STABLE_URL="https://gnupg.org/ftp/gcrypt/npth/npth-${NPTH_VERSION}.tar.bz2"
+export ZOPEN_STABLE_DEPS="make bzip2 tar curl perl automake autoconf m4 sed gettext zoslib diffutils libgpgerror"
+export ZOPEN_COMP=CLANG
 
 zopen_check_results()
 {
@@ -34,7 +36,5 @@ zopen_append_to_setup()
 
 zopen_get_version()
 {
-  # Modify to echo the version of your tool/library
-  # Rather than hardcoding the version, obtain the version by running the tool/library
   echo "$NPTH_VERSION"
 }
