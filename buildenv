@@ -1,5 +1,5 @@
 # bump: npth-version /NPTH_VERSION="(.*)"/ https://gnupg.org/ftp/gcrypt/npth/|re:/href="npth-([\d.]+).tar.bz2"/$1/|semver:*
-NPTH_VERSION="1.6"
+NPTH_VERSION="1.7"
 
 export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_STABLE_URL="https://gnupg.org/ftp/gcrypt/npth/npth-${NPTH_VERSION}.tar.bz2"
