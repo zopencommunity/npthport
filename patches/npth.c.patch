@@ -1,13 +1,13 @@
 diff --git a/src/npth.c b/src/npth.c
-index 45ca7ee..1189e86 100644
+index 6db6a6b..715f906 100644
 --- a/src/npth.c
 +++ b/src/npth.c
-@@ -62,6 +62,8 @@ sem_wait (sem_t *sem)
-   dispatch_semaphore_wait (*sem, DISPATCH_TIME_FOREVER);
+@@ -124,6 +124,8 @@ sem_wait (sem_t *sem)
+     return r;
    return 0;
  }
 +#elif __MVS__
 +#include <zos-semaphore.h>
  #else
+ /* Use POSIX semaphore when available.  */
  # include <semaphore.h>
- #endif
