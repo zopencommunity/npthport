@@ -39,3 +39,10 @@ zopen_get_version()
 {
   echo "$NPTH_VERSION"
 }
+
+zopen_post_install()
+{
+   mkdir -p $1/bin
+   cp npth-config $1/bin/
+   cp npth-config $ZOPEN_ROOTFS/usr/local/bin/
+}
