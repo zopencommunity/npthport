@@ -7,6 +7,7 @@ export ZOPEN_STABLE_URL="https://gnupg.org/ftp/gcrypt/npth/npth-${NPTH_VERSION}.
 export ZOPEN_STABLE_DEPS="make bzip2 tar curl perl automake autoconf m4 sed gettext zoslib diffutils libgpgerror openssl"
 export ZOPEN_INSTALL="zopen_install"
 export ZOPEN_COMP=CLANG
+export ZOPEN_SKIP_ZOSLIB_ENV_HOOK=1
 
 zopen_check_results()
 {
