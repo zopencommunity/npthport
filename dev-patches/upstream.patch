@@ -14,7 +14,7 @@ index c6f534e..3061194 100644
    lt_cv_deplibs_check_method=pass_all
    ;;
 diff --git a/src/npth.c b/src/npth.c
-index 6db6a6b..715f906 100644
+index 6db6a6b..1be5fae 100644
 --- a/src/npth.c
 +++ b/src/npth.c
 @@ -124,6 +124,8 @@ sem_wait (sem_t *sem)
@@ -26,3 +26,103 @@ index 6db6a6b..715f906 100644
  #else
  /* Use POSIX semaphore when available.  */
  # include <semaphore.h>
+@@ -335,6 +337,39 @@ npth_setname_np (npth_t target_thread, const char *name)
+ #endif
+ }
+ 
++npth_t get_npth_self(void) {
++    npth_t mytid;
++#ifdef __MVS__
++    mytid.__ = npth_self().__;
++#else
++    mytid = npth_self ()
++#endif
++    return mytid;
++}
++
++int npth_equal(npth_t first, npth_t second) {
++#ifdef __MVS__
++    return first.__ == second.__;
++#elif
++    return first == second;
++#endif
++}
++
++unsigned long get_npth_self_id() {
++#ifdef __MVS__
++    return npth_self().__;
++#elif
++    return npth_self();
++#endif
++}
++
++unsigned long get_npth_id(npth_t tid){
++#ifdef __MVS__
++	return tid.__;
++#elif	
++     	return tid;
++#endif
++}
+ 
+ 
+ struct startup_s
+diff --git a/src/npth.h.in b/src/npth.h.in
+index 037600c..c56cd57 100644
+--- a/src/npth.h.in
++++ b/src/npth.h.in
+@@ -137,6 +137,11 @@ int npth_join(npth_t thread, void **retval);
+ 
+ void npth_exit(void *retval);
+ 
++npth_t get_npth_self(void);
++int npth_equal(npth_t first, npth_t second);
++unsigned long get_npth_self_id();
++unsigned long get_npth_id(npth_t tid);
++
+ 
+ /* Utilities */
+ 
+diff --git a/w32/npth.c b/w32/npth.c
+index d4fe602..866e9c4 100644
+--- a/w32/npth.c
++++ b/w32/npth.c
+@@ -662,6 +662,23 @@ npth_exit (void *retval)
+   LEAVE();
+ }
+ 
++npth_t get_npth_self(void) {
++    npth_t mytid;
++    mytid = npth_self ()
++    return mytid;
++}
++
++int npth_equal(npth_t first, npth_t second) {
++    return first == second;
++}
++
++unsigned long get_npth_self_id() {
++    return npth_self();
++}
++
++unsigned long get_npth_id(npth_t tid){
++    return tid;
++}
+ 
+ 
+ int
+diff --git a/w32/npth.h.in b/w32/npth.h.in
+index aa9c70f..d3ec027 100644
+--- a/w32/npth.h.in
++++ b/w32/npth.h.in
+@@ -81,6 +81,11 @@ int npth_join (npth_t th, void **thread_return);
+ int npth_detach (npth_t th);
+ void npth_exit (void *retval);
+ 
++npth_t get_npth_self(void);
++int npth_equal(npth_t first, npth_t second);
++unsigned long get_npth_self_id();
++unsigned long get_npth_id(npth_t tid);
++
+ typedef DWORD npth_key_t;
+ int npth_key_create (npth_key_t *key,
+ 		     void (*destr_function) (void *));
