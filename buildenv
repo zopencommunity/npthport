@@ -8,6 +8,7 @@ export ZOPEN_STABLE_DEPS="make bzip2 tar curl perl automake autoconf m4 sed gett
 export ZOPEN_INSTALL="zopen_install"
 export ZOPEN_COMP=CLANG
 export ZOPEN_SKIP_ZOSLIB_ENV_HOOK=1
+export ZOPEN_EXTRA_CPPFLAGS="-mzos-target=zosv2r5 -march=z13"
 
 zopen_check_results()
 {
